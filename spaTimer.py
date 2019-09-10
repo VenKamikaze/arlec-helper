@@ -3,6 +3,8 @@ import time
 import sys
 from orvibo import Orvibo
 
+py3 = sys.version_info[0] == 3
+
 SPA_MAC="DEVICE_MAC_HERE"
 ATTEMPTS_TO_TRY=120
 WAIT_SECONDS_BETWEEN_ATTEMPTS=30
@@ -17,10 +19,12 @@ switchToOn = (sys.argv[1] == "ON")
 
 def getIPForMac(mac):
   for vals in Orvibo.discover().values():
-    if(binascii.hexlify(vals[1]) == mac):
-      print('Found IP=', vals[0])
+    foundMac = binascii.hexlify(vals[1]).decode('utf-8') if py3 else binascii.hexlify(vals[1])
+    if(foundMac == mac):
+      print('Found IP={}'.format(vals[0]) )
       return vals[0]
   return None
+
 
 def getDeviceForMac(mac, attempts, delay):
   attempt = 1
