@@ -1,3 +1,7 @@
+#!/usr/bin/python
+
+# Dependency: https://github.com/cherezov/orvibo
+
 import binascii
 import time
 import sys
