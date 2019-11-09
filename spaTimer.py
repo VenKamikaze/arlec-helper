@@ -60,6 +60,8 @@ else:
       print('Tried to switch state')
     except:
       print('Caught exception trying to switch state, re-checking and trying again if needed.')
+      # Need to grab the device again because spaSocket.on can show incorrect state after this
+      spaSocket = getDeviceForMac(SPA_MAC, ATTEMPTS_TO_TRY, WAIT_SECONDS_BETWEEN_ATTEMPTS)
     attemptsTried = attemptsTried + 1
     time.sleep(WAIT_SECONDS_BETWEEN_ATTEMPTS)
     # Only give up if we are switching it on, otherwise keep trying forever
